@@ -15,7 +15,7 @@ def build_enc_dec(source,reuse=False) :
                 InstanceNorm('conv2d_in_%d'%(l+2)),
                 Lrelu(),
             ]
-        for l in xrange(9) :
+        for l in range(9) :
             encoder_spec +=[
                 ResidualBlock('res_%d'%(l+1),128)
             ]

@@ -23,10 +23,10 @@ BETA_2 = 0.9
 LAMBDA = 10
 LAMBDA_CYCLE = 10
 
-BATCH_SIZE = 8
+BATCH_SIZE = 4
 
 MAX_ITERATION = 1000000
-SAVE_PERIOD = 10000
+SAVE_PERIOD = 1000
 SUMMARY_PERIOD = 50
 
 NUM_CRITIC_TRAIN = 4
@@ -152,11 +152,11 @@ try:
     summary_writer = tf.summary.FileWriter(LOG_DIR,sess.graph)
     coord = tf.train.Coordinator()
     threads = tf.train.start_queue_runners(sess=sess,coord=coord)
-    for step in xrange(MAX_ITERATION+1) :
+    for step in range(MAX_ITERATION+1) :
         if coord.should_stop() :
             break
 
-        for _ in xrange(NUM_CRITIC_TRAIN) :
+        for _ in range(NUM_CRITIC_TRAIN) :
             _ = sess.run(train_c_op)
         W_eval, GP_eval, loss_g_eval, loss_cycle_eval, _ = sess.run([W,GP,loss_g,loss_cycle,train_g_op])
 
@@ -168,7 +168,7 @@ try:
         if( step % SAVE_PERIOD == 0 ):
             saver.save(sess,LOG_DIR+'/model.ckpt',global_step=step)
 
-except Exception, e:
+except Exception as e:
     coord.request_stop(e)
 finally :
     coord.request_stop()

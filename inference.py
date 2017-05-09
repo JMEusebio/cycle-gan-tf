@@ -88,7 +88,7 @@ try:
 
         f_b_eval,b_eval,a_gen_eval,b_identity_eval = sess.run([f_b,b,a_gen,b_identity])
         _save_to_file(RESULT_B_DIR,f_b_eval[0],b_eval,a_gen_eval,b_identity_eval)
-except Exception, e:
+except Exception as e:
     coord.request_stop(e)
 finally :
     coord.request_stop()
